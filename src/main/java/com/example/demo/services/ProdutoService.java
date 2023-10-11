@@ -165,7 +165,7 @@ public class ProdutoService {
 		List<Produto> list = repositorio.findAllProdutoNovo();
 
 		Optional<Produto> findProdutoComMaiorDescricao = list.stream()
-															.reduce((p1, p2) -> p1.getNome().length() > p2.getNome().length() ? p1 : p2);
+								     .reduce((p1, p2) -> p1.getNome().length() > p2.getNome().length() ? p1 : p2);
 
 		return findProdutoComMaiorDescricao.get();
 	}
