@@ -28,7 +28,4 @@ public class ProdutoController {
     public List<Produto> findAll() {
         return service.findAll();
     }
-
-    @GetMapping("/{id}")
-
 }
