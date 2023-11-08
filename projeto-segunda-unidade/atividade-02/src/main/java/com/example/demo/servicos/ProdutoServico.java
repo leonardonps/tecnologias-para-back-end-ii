@@ -2,7 +2,9 @@ package com.example.demo.servicos;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.example.demo.entidades.dtos.ProdutoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,31 +17,47 @@ public class ProdutoServico {
 	@Autowired
 	private ProdutoRepositorioJPA produtoRepositorioJPA;
 	
-	public Produto insert(Produto produto) {
+	public ProdutoDTO insert(ProdutoDTO produtoDTO) {
 		/*List<Produto> teste = produtoRepositorioJPA.findAll();*/
-		return produtoRepositorioJPA.save(produto);
+
+		Produto prod = new Produto(produtoDTO.getId(), produtoDTO.getNome(), produtoDTO.getPreco());
+		return new ProdutoDTO(produtoRepositorioJPA.save(prod));
 	}
 	
 	
-	public List<Produto> findAll() {
-		return produtoRepositorioJPA.findAll();
+	public List<ProdutoDTO> findAll() {
+		List<Produto> list = produtoRepositorioJPA.findAll();
+		return list.stream().map(p -> new ProdutoDTO(p)).collect(Collectors.toList());
 		
 	}
 	
-	public Optional<Produto> findById(Integer id) {
-		return produtoRepositorioJPA.findById(id);	
+	public Optional<ProdutoDTO> findById(Integer id) {
+		Optional<Produto> produtoAchado = produtoRepositorioJPA.findById(id);
+		Optional<ProdutoDTO> produtoAchadoDTO = Optional.of(new ProdutoDTO(produtoAchado));
+
+		return produtoAchadoDTO;
 	}
-	
+
+
+
+
+
+
 	public void delete(Integer id) {
 		produtoRepositorioJPA.deleteById(id);
+
 	}
 
-	public Optional<Produto> findByNameJpql(String nome) {
-		return produtoRepositorioJPA.findNomeProdutoJpql(nome);	
+	public Optional<ProdutoDTO> findByNameJpql(String nome) {
+		Optional<Produto> prod = produtoRepositorioJPA.findNomeProdutoJpql(nome);
+		Optional<ProdutoDTO> prodDto = Optional.of(new ProdutoDTO(prod));
+		return prodDto;
 	}
 
-	public Optional<Produto> findByNameSql(String nome) {
-		return produtoRepositorioJPA.findNomeProdutoSql(nome);	
+	public Optional<ProdutoDTO> findByNameSql(String nome) {
+		Optional<Produto> prod = produtoRepositorioJPA.findNomeProdutoSql(nome);
+		Optional<ProdutoDTO> prodDTO = Optional.of(new ProdutoDTO(prod));
+		return prodDTO;
 	}
 	
 
