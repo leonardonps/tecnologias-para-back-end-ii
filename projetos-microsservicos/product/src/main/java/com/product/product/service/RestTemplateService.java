@@ -13,7 +13,7 @@ public class RestTemplateService {
     public ResponseEntity<List<Object>> getRequestSku(String id) {
         RestTemplate restTemplate = new RestTemplate();
         Map<String, String> params = new HashMap<>();
-        ResponseEntity response = restTemplate.getForEntity("http://localhost:8081/getSkubyProduct?id=" + id, Object.class);
+        ResponseEntity response = restTemplate.getForEntity({URL_SKU} + id, Object.class);
         return response;
     }
 }
