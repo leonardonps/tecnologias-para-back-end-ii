@@ -1,5 +1,6 @@
 package com.product.product.service;
 
+import com.product.product.model.Sku;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
