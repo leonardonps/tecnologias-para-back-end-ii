@@ -2,6 +2,7 @@ package com.sku.sku.controller;
 
 import com.sku.sku.model.Sku;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +14,8 @@ import java.util.stream.Collectors;
 @RestController
 public class SkuController {
 
-    @GetMapping(value = "/getSkubyProduct")
-    List<Sku> getSkuByProductId(@RequestParam String id) {
+    @GetMapping(value = "/getSkubyProduct/{id}")
+    List<Sku> getSkuByProductId(@PathVariable String id) {
        List<String> skus1 = Arrays.asList("SKU123", "SKU456");
        List<String> skus2 = Arrays.asList("SKU566", "SKU122");
        Sku sku1 = new Sku("1", skus1);
